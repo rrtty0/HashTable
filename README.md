@@ -1,2 +1,2 @@
-# Lab_3
- 
+# HashTable
+Own implementation of hash table
