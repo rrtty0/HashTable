@@ -1,11 +1,19 @@
 #pragma once
+#include <stdio.h>
+#include <tchar.h>
+#include <vector>
+#include <list>
+#include <math.h>
+#include <time.h>
+#include <iostream>
+using namespace std;
 
 class HashTable
 {
 private:
 	int num_of_elements;           //number of elements in table
 	vector<list<int>> table;       //table with data
-	static const int startSize;    //defaulr number of groups in table
+	static const int startSize;    //default number of groups in table
 
 	void changeTableSize(float);   //change number of groups in table
 
