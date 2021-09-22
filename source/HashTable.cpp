@@ -4,8 +4,7 @@
 const int HashTable::startSize = 16;
 
 //constructor without arguments
-HashTable::HashTable()
-{
+HashTable::HashTable(){
 	num_of_elements = 0;
 	table.resize(startSize);
 	for (int i = 0; i < startSize; ++i)
@@ -13,16 +12,14 @@ HashTable::HashTable()
 }
 
 //constructor of copy
-HashTable::HashTable(const HashTable& hashTable)
-{
+HashTable::HashTable(const HashTable& hashTable){
 	this->num_of_elements = hashTable.num_of_elements;
 	this->table.reserve(hashTable.table.size());
 	copy(hashTable.table.begin(), hashTable.table.end(), back_inserter(this->table));
 }
 
 //constructor with move
-HashTable::HashTable(HashTable&& hashTable)
-{
+HashTable::HashTable(HashTable&& hashTable){
 	HashTable empty;
 	empty.table.clear();
 
@@ -33,8 +30,7 @@ HashTable::HashTable(HashTable&& hashTable)
 }
 
 //constructor with size
-HashTable::HashTable(int size)
-{
+HashTable::HashTable(int size){
 	int _size;
 
 	if (size > INT_MAX || size <= startSize)
@@ -57,8 +53,7 @@ HashTable::HashTable(int size)
 }
 
 //= with copy
-HashTable& HashTable::operator=(const HashTable& hashTable)
-{
+HashTable& HashTable::operator=(const HashTable& hashTable){
 	if (this != &hashTable)
 	{
 		this->num_of_elements = hashTable.num_of_elements;
@@ -70,8 +65,7 @@ HashTable& HashTable::operator=(const HashTable& hashTable)
 }
 
 //= with move
-HashTable& HashTable::operator=(HashTable&& hashTable)
-{
+HashTable& HashTable::operator=(HashTable&& hashTable){
 	if (this != &hashTable)
 	{
 		HashTable empty;
@@ -87,8 +81,7 @@ HashTable& HashTable::operator=(HashTable&& hashTable)
 }
 
 //operator &= for hashTable
-HashTable& HashTable::operator&=(const HashTable& hashTable)
-{
+HashTable& HashTable::operator&=(const HashTable& hashTable){
 	HashTable cur(hashTable);
 	
 	for (int i = 0; i < table.size(); ++i)
@@ -108,15 +101,13 @@ HashTable& HashTable::operator&=(const HashTable& hashTable)
 }
 
 //operator & for hashTable
-HashTable HashTable::operator&(const HashTable& hashTable) const
-{
+HashTable HashTable::operator&(const HashTable& hashTable) const{
 	HashTable cur(*this);
 	return (cur &= hashTable);
 }
 
 //operator |= for hashTable
-HashTable& HashTable::operator|=(const HashTable& hashTable)
-{
+HashTable& HashTable::operator|=(const HashTable& hashTable){
 	HashTable cur(hashTable);
 
 	for (int i = 0; i < cur.table.size(); ++i)
@@ -131,15 +122,13 @@ HashTable& HashTable::operator|=(const HashTable& hashTable)
 }
 
 //operator | for hashTable
-HashTable HashTable::operator|(const HashTable& hashTable) const
-{
+HashTable HashTable::operator|(const HashTable& hashTable) const{
 	HashTable cur(*this);
 	return (cur |= hashTable);
 }
 
 //operator += for hashTable(additional with mod 2)
-HashTable& HashTable::operator+=(const HashTable& hashTable)
-{
+HashTable& HashTable::operator+=(const HashTable& hashTable){
 	HashTable cur(hashTable);
 
 	for (int i = 0; i < cur.table.size(); ++i)
@@ -156,23 +145,20 @@ HashTable& HashTable::operator+=(const HashTable& hashTable)
 }
 
 //operator + for hashTable(additional with mod 2)
-HashTable HashTable::operator+(const HashTable& hashTable) const
-{
+HashTable HashTable::operator+(const HashTable& hashTable) const{
 	HashTable cur(*this);
 	return (cur += hashTable);
 }
 
 //destructor without arguments
-HashTable::~HashTable()
-{
+HashTable::~HashTable(){
 	for (int i = 0; i < table.size(); ++i)
 		table[i].clear();
 	table.clear();
 }
 
 //print hashTable on screen
-void HashTable::show()
-{
+void HashTable::show(){
 	for (int i = 0; i < table.size(); ++i)
 	{
 		cout << i << ":";
@@ -183,14 +169,12 @@ void HashTable::show()
 }
 
 //get hashcode of value
-int HashTable::hashCode(int value)
-{
+int HashTable::hashCode(int value){
 	return value % table.size();
 }
 
 //add element to table
-bool HashTable::add(int value)
-{
+bool HashTable::add(int value){
 	int hash = hashCode(value);
 	int size_of_group = table[hash].size();
 	bool added = false;
@@ -221,8 +205,7 @@ bool HashTable::add(int value)
 }
 
 //change number of groups in table
-void HashTable::changeTableSize(float coef)
-{
+void HashTable::changeTableSize(float coef){
 	vector<list<int>> oldTable;
 
 	oldTable.resize(coef * table.size());
@@ -243,8 +226,7 @@ void HashTable::changeTableSize(float coef)
 }
 
 //delete element from table
-bool HashTable::remove(int value)
-{
+bool HashTable::remove(int value){
 	int hash = hashCode(value);
 	bool removed = false;
 	
@@ -270,8 +252,7 @@ bool HashTable::remove(int value)
 }
 
 //check availability of element in hashtable
-bool HashTable::contains(int value)
-{
+bool HashTable::contains(int value){
 	int hash = hashCode(value);
 	int size_of_group = table[hash].size();
 
@@ -283,20 +264,17 @@ bool HashTable::contains(int value)
 }
 
 //get number of groups in table
-int HashTable::getSize()
-{
+int HashTable::getSize(){
 	return table.size();
 }
 
 //get number of elements in table
-int HashTable::getNumberOfElements()
-{
+int HashTable::getNumberOfElements(){
 	return num_of_elements;
 }
 
 //generate hashTable
-void HashTable::generate(int supremum)
-{
+void HashTable::generate(int supremum){
 	srand(time(NULL));
 	if (num_of_elements != 0)
 	{
